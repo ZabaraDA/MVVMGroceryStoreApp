@@ -13,9 +13,9 @@
         Width="1440" 
         FontFamily="{StaticResource Blogger Sans}"
         FontSize="20">
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <vm:MenuViewModel/>
-    </Window.DataContext>
+    </Window.DataContext>-->
     <WindowChrome.WindowChrome>
         <WindowChrome NonClientFrameEdges="None" 
                       CaptionHeight="40" 
@@ -38,7 +38,7 @@
         <Frame NavigationUIVisibility="Hidden" 
                Background="{StaticResource Frame.Static.Background}" 
                Grid.Row="1" Grid.Column="1" 
-               Content="{Binding Path=CurrentView}"/>
+               Content="{Binding Path=CurrentViewModel}"/>
         <TextBlock Width="auto" Margin="0 5 0 0"
                Foreground="White" Grid.ColumnSpan="2" Name="StatusBarTextBlock"
                HorizontalAlignment="Center"/>

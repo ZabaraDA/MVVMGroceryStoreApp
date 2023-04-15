@@ -6,12 +6,44 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace MVVMGroceryStoreApp.ViewModels
 {
     public class MenuViewModel : BaseViewModel
     {
+        private readonly NavigationStore _navigationStore;
+
+        private readonly ModalNavigationStore _modalNavigationStore;
+
+        public BaseViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
+
+        public BaseViewModel CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
+
+        public bool IsOpen => _modalNavigationStore.IsOpen;
+
+        public MenuViewModel(NavigationStore navigationStore, ModalNavigationStore modalNavigationStore)
+        {
+            _navigationStore = navigationStore;
+            _modalNavigationStore = modalNavigationStore;
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            _modalNavigationStore.CurrentViewModelChanged += OnCurrentModalViewModelChanged;
+
+            //ProductCommand = new ActionCommand(Product);
+        }
+
+        private void OnCurrentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
+        }
+
+        private void OnCurrentModalViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentModalViewModel));
+            OnPropertyChanged(nameof(IsOpen));
+        }
+
 
         private object _currentView;
         public object CurrentView
@@ -47,13 +79,9 @@ namespace MVVMGroceryStoreApp.ViewModels
                 OnPropertyChanged(nameof(ResizeMode));
             }
         }
-        public ICommand ProductCommand { get; set; }
-        private void Product(object obj) => CurrentView = new ProductViewModel();
+        //public ICommand ProductCommand { get; set; }
+        //private void Product(object obj) => CurrentView = new ProductViewModel(_navigationService);
 
-        public MenuViewModel()
-        {
-            ProductCommand = new ActionCommand(Product);
-        }
 
 
         #region Commands

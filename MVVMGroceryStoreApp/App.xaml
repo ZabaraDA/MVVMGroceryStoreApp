@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:MVVMGroceryStoreApp" 
              xmlns:viewmodels="clr-namespace:MVVMGroceryStoreApp.ViewModels" 
              xmlns:views="clr-namespace:MVVMGroceryStoreApp.Views.Pages" 
-             StartupUri="Views\Windows\AuthorizationWindow.xaml">
+             >
+             <!--StartupUri="Views\Windows\MenuWindow.xaml"-->
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

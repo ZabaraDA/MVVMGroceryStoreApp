@@ -19,9 +19,9 @@ namespace MVVMGroceryStoreApp
     /// Логика взаимодействия для MainWindow.xaml
     /// Окно авторизации
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AuthorizationWindow : Window
     {
-        public MainWindow()
+        public AuthorizationWindow()
         {
             InitializeComponent();
         }

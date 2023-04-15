@@ -11,7 +11,14 @@ using System.Windows.Input;
 namespace MVVMGroceryStoreApp.ViewModels
 {
     public class ProductViewModel : BaseViewModel
-    {        
+    {
+        public ICommand NavigateProductCommand { get; }
+
+
+        public ProductViewModel(INavigationService navigationService)
+        {
+            NavigateProductCommand = new NavigateCommand(navigationService);
+        }
         #region Commands
         public ICommand AddProductCommand
         {
@@ -19,7 +26,7 @@ namespace MVVMGroceryStoreApp.ViewModels
             {
                 return new ActionCommand((obj) =>
                 {
-                    
+
                 });
             }
         }

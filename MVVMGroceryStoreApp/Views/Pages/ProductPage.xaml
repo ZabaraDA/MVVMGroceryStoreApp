@@ -8,9 +8,9 @@
       xmlns:viewmodels="clr-namespace:MVVMGroceryStoreApp.ViewModels"
       mc:Ignorable="d"
       Title="ProductPage">
-    <Page.DataContext>
-        <viewmodels:ProductViewModel/>
-    </Page.DataContext>
+    <!--<Page.DataContext>
+        --><!--<viewmodels:ProductViewModel/>--><!--
+    </Page.DataContext>-->
     <Page.Resources>
         
         <Style TargetType="{x:Type ToggleButton}" x:Key="GroupingToggleButton">
@@ -348,7 +348,7 @@
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Text="Товары" VerticalAlignment="Center" FontSize="24" Margin="20 5 5 5"></TextBlock>
-            <Button Command="{Binding AddProductCommand}" Width="200"></Button>
+            <Button Command="{Binding NavigateProductCommand}" Width="200"></Button>
             <my:TextBoxWithRemoved Name="NameSearchTextBox"
                                Width="200" Height="35"
                                FontSize="22"
