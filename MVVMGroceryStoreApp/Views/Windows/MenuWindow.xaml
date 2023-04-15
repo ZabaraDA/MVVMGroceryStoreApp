@@ -1,0 +1,77 @@
+﻿<Window x:Class="MVVMGroceryStoreApp.Views.Windows.MenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVMGroceryStoreApp.Views.Windows" xmlns:vm="clr-namespace:MVVMGroceryStoreApp.ViewModels" xmlns:my="clr-namespace:WpfCustomControlLibrary;assembly=WpfCustomControlLibrary"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowState="{Binding Path=WindowState}"
+        ResizeMode="{Binding Path=ResizeMode}"
+        WindowStyle="None"
+        Height="900" 
+        Width="1440" 
+        FontFamily="{StaticResource Blogger Sans}"
+        FontSize="20">
+    <Window.DataContext>
+        <vm:MenuViewModel/>
+    </Window.DataContext>
+    <WindowChrome.WindowChrome>
+        <WindowChrome NonClientFrameEdges="None" 
+                      CaptionHeight="40" 
+                      ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Row="0"  
+                Grid.ColumnSpan="2" 
+                Background="{StaticResource Window.NavigationBar.Background}"/>
+
+
+        <Frame NavigationUIVisibility="Hidden" 
+               Background="{StaticResource Frame.Static.Background}" 
+               Grid.Row="1" Grid.Column="1" 
+               Content="{Binding Path=CurrentView}"/>
+        <TextBlock Width="auto" Margin="0 5 0 0"
+               Foreground="White" Grid.ColumnSpan="2" Name="StatusBarTextBlock"
+               HorizontalAlignment="Center"/>
+
+        <StackPanel  HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1">
+            <my:NavigationButton Data="{StaticResource HidePathData}"
+                                 Style="{StaticResource PanelNavigationButtonStyle}"
+                                 Command="{Binding Path=MinimizedCommand}"/>
+            <my:NavigationButton Data="{StaticResource FullScreenPathData}"  
+                                 Style="{StaticResource PanelNavigationButtonStyle}"
+                                 Command="{Binding Path=ScreenCommand}"/>
+            <my:NavigationButton Data="{StaticResource ExitPathData}" 
+                                 Style="{StaticResource PanelNavigationButtonStyle}"
+                                 Command="{Binding Path=ExitCommand}"/>
+        </StackPanel>
+        <Grid Width="70" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" 
+              Background="{StaticResource Window.NavigationBar.Border}">
+            <Grid.Effect>
+                <DropShadowEffect Opacity="0.15" BlurRadius="5" Direction="360"/>
+            </Grid.Effect>
+            <StackPanel>
+
+                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Top" Margin="10 10 10 0">
+                    <Border Width="50" Height="50"  Background="White" CornerRadius="5"></Border>
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Имя" Name="NameTextBlock"></TextBlock>
+                        <TextBlock Text="Фамилия" Name="SurnameTextBlock"></TextBlock>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Name="ControlStackPanel">
+                <my:NavigationButton Data="{StaticResource ProductPathData}" Command="{Binding Path=ProductCommand}"></my:NavigationButton>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

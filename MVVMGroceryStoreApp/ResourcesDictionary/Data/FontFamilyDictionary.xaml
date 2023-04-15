@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--#region Font Familys-->
+    <FontFamily x:Key="Blogger Sans">/Fonts/#Blogger Sans</FontFamily>
+    <FontFamily x:Key="Caviar Dreams">/Fonts/#Caviar Dreams</FontFamily>
+    <FontFamily x:Key="Kelson Sans RU">/Fonts/#Kelson Sans RU</FontFamily>
+    <!--#endregion-->
+</ResourceDictionary>

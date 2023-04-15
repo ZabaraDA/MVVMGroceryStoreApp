@@ -1,0 +1,115 @@
+﻿<Window x:Class="MVVMGroceryStoreApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVVMGroceryStoreApp" 
+        xmlns:my="clr-namespace:WpfCustomControlLibrary;assembly=WpfCustomControlLibrary"
+        xmlns:vm="clr-namespace:MVVMGroceryStoreApp.ViewModels"
+        mc:Ignorable="d"
+        WindowState="{Binding Path=WindowState}"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Height="600" Width="400"
+        FontFamily="{StaticResource Blogger Sans}"
+        FontSize="20">
+    <Window.DataContext>
+        <vm:AuthorizationViewModel/>
+    </Window.DataContext>
+    <WindowChrome.WindowChrome>
+        <WindowChrome NonClientFrameEdges="None" CaptionHeight="40" ResizeBorderThickness="1" />
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseButtonStyle}">
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="40"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Grid.RowSpan="4" 
+                Grid.Row="0" 
+                Background="{StaticResource Window.NavigationBar.Foreground}"/>
+        <Border Grid.Row="0" 
+                Background="{StaticResource Window.NavigationBar.Background}"/>
+
+        <TextBlock Text="Окно авторизации" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" 
+                   Foreground="White"></TextBlock>
+        <StackPanel HorizontalAlignment="Right" 
+                    Orientation="Horizontal">
+            <my:NavigationButton Style="{StaticResource PanelNavigationButtonStyle}"
+                                 WindowChrome.IsHitTestVisibleInChrome="True"
+                                 Data="{StaticResource HidePathData}"
+                                 Command="{Binding Path=MinimizedCommand}"/>
+            <my:NavigationButton Style="{StaticResource PanelNavigationButtonStyle}"
+                                 WindowChrome.IsHitTestVisibleInChrome="True"
+                                 Data="{StaticResource ExitPathData}"
+                                 Command="{Binding Path=ExitCommand}"/>
+        </StackPanel>
+        <Image Grid.Row="1" Source="/Images/Logo.png" 
+                   VerticalAlignment="Top"
+                   Margin="0 40 0 40"
+                   Height="150"></Image>
+        <StackPanel Grid.Row="2" 
+                    HorizontalAlignment="Center" 
+                    Margin="10">
+
+            <TextBlock Text="Введите логин" 
+                       Height="30"/>
+            <TextBox Style="{StaticResource AuthorizationTextBoxStyle}"
+                     Text="{Binding Path=Login}"></TextBox>
+            <TextBlock Text="Введите пароль" 
+                       Height="30"/>
+            <PasswordBox Style="{StaticResource AuthorizationPasswordBoxStyle}" 
+                         PasswordChanged="PasswordBox_PasswordChanged"/>
+
+        </StackPanel>
+
+        <Button Grid.Row="3"
+                Content="Войти"
+                Command="{Binding Path=OpenCommand}"></Button>
+
+        <Border Background="Black" Grid.Row="1" Grid.RowSpan="3" Opacity="0.6" Visibility="Collapsed">
+            <Rectangle Width="100" Height="100" Fill="White" IsEnabled="False">
+                <!--<Rectangle.Fill>
+                    <ImageBrush ImageSource="/Images/aaa.png"></ImageBrush>
+                </Rectangle.Fill>-->
+                <Rectangle.RenderTransform>
+                    <RotateTransform Angle="0" CenterX="50" CenterY="50"/>
+                </Rectangle.RenderTransform>
+                <Rectangle.Style>
+                    <Style TargetType="{x:Type Rectangle}">
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)" 
+                                                             To="0" From="360" Duration="0:0:0:1" RepeatBehavior="Forever"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Rectangle.Style>
+
+            </Rectangle>
+        </Border>
+
+        <!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Visibility="Hidden">
+            <TextBlock Text="Данные введены неверно"></TextBlock>
+            <TextBlock FontSize="36" Name="TimerTextBlock" HorizontalAlignment="Center"></TextBlock>
+        </StackPanel>-->
+
+    </Grid>
+
+</Window>
