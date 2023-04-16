@@ -11,9 +11,10 @@ namespace MVVMGroceryStoreApp.ViewModels
 {
     public class AddProductViewModel : BaseViewModel
     {
+        public ICommand NavigateProductCommand { get; }
         public AddProductViewModel(INavigationService navigationService)
         {
-
+            NavigateProductCommand = new NavigateCommand(navigationService);
         }
         public ICommand AddProductCommand
         {

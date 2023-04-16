@@ -1,4 +1,5 @@
 ﻿using MVVMGroceryStoreApp.Infrastructure.Commands;
+using MVVMGroceryStoreApp.Services;
 using MVVMGroceryStoreApp.Views.Windows;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,47 @@ namespace MVVMGroceryStoreApp.ViewModels
 {
     public class AuthorizationViewModel : BaseViewModel
     {
+
+        private readonly NavigationStore _navigationStore;
+        private readonly ModalNavigationStore _modalNavigationStore;
+
+        public AuthorizationViewModel()
+        {
+            _navigationStore = new NavigationStore();
+            _modalNavigationStore = new ModalNavigationStore();
+        }
+
+        protected void OnStartup()
+        {
+            INavigationService navigationService = CreateHomeNavigationService();
+            navigationService.Navigate();
+            MenuWindow menuWindow = new MenuWindow()
+            {
+                DataContext = new MenuViewModel(_navigationStore, _modalNavigationStore)
+            };
+            menuWindow.Show();
+            
+        }
+
+        private INavigationService CreateHomeNavigationService()
+        {
+            return new NavigationService<ProductViewModel>(_navigationStore, CreateProductViewModel);
+        }
+
+        private ProductViewModel CreateProductViewModel()
+        {
+            return new ProductViewModel(CreateAccountNavigationService());
+        }
+
+        private INavigationService CreateAccountNavigationService()
+        {
+            return new NavigationService<AddProductViewModel>(_navigationStore, CreateAddProductViewModel);
+        }
+
+        private AddProductViewModel CreateAddProductViewModel()
+        {
+            return new AddProductViewModel(CreateHomeNavigationService());
+        }
         private string _login;
         public string Login
         {
@@ -82,8 +124,7 @@ namespace MVVMGroceryStoreApp.ViewModels
             {
                 return new ActionCommand((obj) =>
                 {
-                    MenuWindow menuWindow = new MenuWindow();
-                    menuWindow.Show();
+                    OnStartup();
                     Application.Current.Windows[0].Close();
                 });
             }

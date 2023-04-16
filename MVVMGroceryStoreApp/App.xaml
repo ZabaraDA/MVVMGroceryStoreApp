@@ -4,8 +4,8 @@
              xmlns:local="clr-namespace:MVVMGroceryStoreApp" 
              xmlns:viewmodels="clr-namespace:MVVMGroceryStoreApp.ViewModels" 
              xmlns:views="clr-namespace:MVVMGroceryStoreApp.Views.Pages" 
+             StartupUri="Views\Windows\AuthorizationWindow.xaml"
              >
-             <!--StartupUri="Views\Windows\MenuWindow.xaml"-->
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,12 +16,12 @@
                 <ResourceDictionary Source="ResourcesDictionary\Data\IconsDictionary.xaml"/>
                 <!--#endregion-->
                 <!--#region Styles Resources Dictionary-->
+                <ResourceDictionary Source="ResourcesDictionary\Styles\PathStyleDictionary.xaml"/>
                 <ResourceDictionary Source="ResourcesDictionary\Styles\ButtonStyleDictionary.xaml"/>
                 <ResourceDictionary Source="ResourcesDictionary\Styles\CheckBoxStyleDictionary.xaml"/>
                 <ResourceDictionary Source="ResourcesDictionary\Styles\ComboBoxStyleDictionary.xaml"/>
                 <ResourceDictionary Source="ResourcesDictionary\Styles\DatePickerStyleDictionary.xaml"/>
                 <ResourceDictionary Source="ResourcesDictionary\Styles\ListViewStyleDictionary.xaml"/>
-                <ResourceDictionary Source="ResourcesDictionary\Styles\PathStyleDictionary.xaml"/>
                 <ResourceDictionary Source="ResourcesDictionary\Styles\TextBoxStyleDictionary.xaml"/>
                 <ResourceDictionary Source="ResourcesDictionary\Styles\PasswordBoxStyleDictionary.xaml"/>
                 <ResourceDictionary Source="ResourcesDictionary\Styles\ToggleButtonStyleDictionary.xaml"/>

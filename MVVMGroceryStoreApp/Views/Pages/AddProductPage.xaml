@@ -4,11 +4,160 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MVVMGroceryStoreApp.Views.Pages"
-      mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="AddProductPage">
-
+      xmlns:my="clr-namespace:WpfCustomControlLibrary;assembly=WpfCustomControlLibrary"
+      mc:Ignorable="d">
+    <Page.Resources>
+        <Style TargetType="{x:Type my:NavigationButton}" BasedOn="{StaticResource StateNavigationButtonStyle}">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template" Value="{StaticResource ListViewButtonTemplate}"></Setter>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="TextWrapping" Value="NoWrap"/>
+            <Setter Property="TextTrimming" Value="None"/>
+            <Setter Property="Width" Value="auto"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="Margin" Value="0 10 0 0"/>
+            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        </Style>
+        <Style TargetType="{x:Type my:TextBoxWithRemoved}">
+            <Setter Property="Width" Value="500"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 10 0 0"/>
+        </Style>
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Width" Value="500"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0 10 0 0"/>
+        </Style>
+        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseButtonStyle}">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="10 20 0 0"/>
+        </Style>
+    </Page.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ScrollViewer>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="#FFCCCCCC">
+                <StackPanel Margin="30">
+                    <Border CornerRadius="10"  Width="400" Height="400" HorizontalAlignment="Center" BorderBrush="Black" BorderThickness="1" Margin="0 0 0 20">
+                        <Border.Background>
+                            <ImageBrush Stretch="UniformToFill" 
+                                        x:Name="PhotoProductImageBrush">
+                                <ImageBrush.ImageSource>
+                                    <Binding Path="Photo" Mode="TwoWay"
+                                             UpdateSourceTrigger="PropertyChanged" 
+                                             Converter="{StaticResource ByteArrayToBitmapImageConverter}">
+                                        <Binding.TargetNullValue>
+                                            <ImageSource>/Images/ImageStub.png</ImageSource>
+                                        </Binding.TargetNullValue>
+                                        <Binding.FallbackValue>
+                                            <ImageSource>/Images/ImageStub.png</ImageSource>
+                                        </Binding.FallbackValue>
+                                    </Binding>
+                                </ImageBrush.ImageSource>
+                            </ImageBrush>
+                        </Border.Background>
+                    </Border>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Добавить фото" Width="200" Command="{Binding AddPhotoCommand}"  Margin="0"></Button>
+                        <my:NavigationButton Data="{StaticResource DeletePathData}" 
+                                             Command="{Binding ClearPhotoCommand}"></my:NavigationButton>
+                    </StackPanel>
+                    <TextBlock Text="Штрих код"></TextBlock>
+                    <my:TextBoxWithRemoved Uid="Введите штрих код" Text="{Binding Barcode}"
+                                           x:Name="BarcodeCodeTextBox" Cursor="IBeam"></my:TextBoxWithRemoved>
+                    <TextBlock Text="Артикул товара"></TextBlock>
+                    <my:TextBoxWithRemoved Uid="Введите артикул товара" Text="{Binding Article}"
+                                           x:Name="VendorCodeTextBox"></my:TextBoxWithRemoved>
+                    <TextBlock Text="Наименование товара"></TextBlock>
+                    <my:TextBoxWithRemoved Uid="Введите наименование товара" Text="{Binding Name}"
+                                           x:Name="NameTextBox"></my:TextBoxWithRemoved>
+                    <TextBlock Text="Описание товара"></TextBlock>
+                    <my:TextBoxWithRemoved Uid="Введите описание товара" Text="{Binding Description}"
+                                           x:Name="DescriptionTextBox"></my:TextBoxWithRemoved>
+                </StackPanel>
+
+                <StackPanel Margin="10 10 30 0">
+                    <TextBlock Text="Стоимость товара"></TextBlock>
+                    <my:TextBoxWithRemoved Uid="Введите стоимость" Text="{Binding Cost}"
+                                           x:Name="CostTextBox"></my:TextBoxWithRemoved>
+                    <TextBlock Text="НДС к цене"></TextBlock>
+                    <my:TextBoxWithRemoved Uid="Введите НДС" Text="{Binding VAT}"
+                                           x:Name="VATTextBox"></my:TextBoxWithRemoved>
+                    <TextBlock Text="Категория товара"></TextBlock>
+                    <ComboBox x:Name="CategoryComboBox" 
+                              SelectedItem="{Binding Path= Категория}" 
+                              SelectedIndex="{Binding Path=SelectedIndex, TargetNullValue=0,FallbackValue=0}"
+                              SelectedValue="{Binding Path= Категория.Код}"
+                              SelectedValuePath="Код"></ComboBox>
+                    <TextBlock Text="Производитель товара"></TextBlock>
+                    <ComboBox x:Name="ManufacturerComboBox" 
+                              SelectedItem="{Binding Path= Производитель}" 
+                              SelectedIndex="{Binding Path=SelectedIndex, TargetNullValue=0,FallbackValue=0}"
+                              SelectedValue="{Binding Path= Производитель.Код}"
+                              SelectedValuePath="Код"></ComboBox>
+                    <TextBlock Text="Срок годности товара(дней)"></TextBlock>
+                    <my:TextBoxWithRemoved Uid="Введите срок годности" Text="{Binding ExpirationDate}"
+                                           x:Name="ExpirationDateTextBox" Cursor="IBeam"></my:TextBoxWithRemoved>
+                    <TextBlock Text="Единица измерения"></TextBlock>
+                    <ComboBox x:Name="UnitComboBox" 
+                              SelectedItem="{Binding Path= ЕдиницаИзмерения}" 
+                              SelectedIndex="{Binding Path=SelectedIndex, TargetNullValue=0,FallbackValue=0}"
+                              SelectedValue="{Binding Path= ЕдиницаИзмерения.Код}"
+                              SelectedValuePath="Код"></ComboBox>
+                    <TextBlock Text="Вес единицы,кг"></TextBlock>
+                    <my:TextBoxWithRemoved Uid="Введите вес нестандартной единицы товара" Text="{Binding Weight,TargetNullValue=0,FallbackValue=0}"
+                                           x:Name="WeightTextBox"></my:TextBoxWithRemoved>
+                    <TextBlock Text="Ширина при размещении"></TextBlock>
+                    <my:TextBoxWithRemoved Uid="Введите ширину товара" Text="{Binding Width}"
+                                           x:Name="WidthTextBox"></my:TextBoxWithRemoved>
+                    <TextBlock Text="Высота при размещении"></TextBlock>
+                    <my:TextBoxWithRemoved Uid="Введите высоту товара" Text="{Binding Height}"
+                                           x:Name="HeightTextBox"></my:TextBoxWithRemoved>
+                    <TextBlock Text="Высота при размещении"></TextBlock>
+                    <my:TextBoxWithRemoved Uid="Введите глубину товара" Text="{Binding Depth}"
+                                           x:Name="DepthTextBox"></my:TextBoxWithRemoved>
+                    <TextBlock Text="Высота при размещении"></TextBlock>
+                    <ComboBox  SelectedItem="{Binding Status}"
+                               x:Name="StatusComboBox">
+                        <ComboBoxItem Content="Не активен"></ComboBoxItem>
+                        <ComboBoxItem Content="Активен"></ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+        <StackPanel Grid.Row="1" Background="#FFC7C7C7" VerticalAlignment="Bottom" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 20">
+                <Button x:Name="AddProductButton" Content="Добавить товар" Command="{Binding AddProductCommand}"></Button>
+                <Button Content="Очистить все поля"></Button>
+                <Button Content="Назад" Command="{Binding Path=NavigateProductCommand}"></Button>
+            </StackPanel>
+            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 20">
+
+                <Button Content="Категории" x:Name="AddCategoryButton" Click="AddCategoryButton_Click"></Button>
+                <Button Content="Производители" x:Name="AddManufacturerButton" Click="AddManufacturerButton_Click"></Button>
+                <Button Content="Единицы измерения" x:Name="AddUnitButton" Click="ClearInputFields_Click"></Button>
+
+            </StackPanel>-->
+        </StackPanel>
     </Grid>
 </Page>

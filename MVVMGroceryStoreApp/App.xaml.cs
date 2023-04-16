@@ -16,47 +16,47 @@ namespace MVVMGroceryStoreApp
     /// </summary>
     public partial class App : Application
     {
-        private readonly NavigationStore _navigationStore;
-        private readonly ModalNavigationStore _modalNavigationStore;
+        //private readonly NavigationStore _navigationStore;
+        //private readonly ModalNavigationStore _modalNavigationStore;
 
-        public App()
-        {
-            _navigationStore = new NavigationStore();
-            _modalNavigationStore = new ModalNavigationStore();
-        }
+        //public App()
+        //{
+        //    _navigationStore = new NavigationStore();
+        //    _modalNavigationStore = new ModalNavigationStore();
+        //}
 
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            INavigationService navigationService = CreateHomeNavigationService();
-            navigationService.Navigate();
-            MenuWindow menuWindow = new MenuWindow()
-            {
-                DataContext = new MenuViewModel(_navigationStore, _modalNavigationStore)
-            };
-            menuWindow.Show();
+        //protected override void OnStartup(StartupEventArgs e)
+        //{
+        //    INavigationService navigationService = CreateHomeNavigationService();
+        //    navigationService.Navigate();
+        //    MenuWindow menuWindow = new MenuWindow()
+        //    {
+        //        DataContext = new MenuViewModel(_navigationStore, _modalNavigationStore)
+        //    };
+        //    menuWindow.Show();
 
-            base.OnStartup(e);
-        }
+        //    base.OnStartup(e);
+        //}
 
-        private INavigationService CreateHomeNavigationService()
-        {
-            return new NavigationService<ProductViewModel>(_navigationStore, CreateProductViewModel);
-        }
+        //private INavigationService CreateHomeNavigationService()
+        //{
+        //    return new NavigationService<ProductViewModel>(_navigationStore, CreateProductViewModel);
+        //}
 
-        private ProductViewModel CreateProductViewModel()
-        {
-            return new ProductViewModel(CreateAccountNavigationService());
-        }
+        //private ProductViewModel CreateProductViewModel()
+        //{
+        //    return new ProductViewModel(CreateAccountNavigationService());
+        //}
 
-        private INavigationService CreateAccountNavigationService()
-        {
-            return new NavigationService<AddProductViewModel>(_navigationStore, CreateAddProductViewModel);
-        }
+        //private INavigationService CreateAccountNavigationService()
+        //{
+        //    return new NavigationService<AddProductViewModel>(_navigationStore, CreateAddProductViewModel);
+        //}
 
-        private AddProductViewModel CreateAddProductViewModel()
-        {
-            return new AddProductViewModel(CreateHomeNavigationService());
-        }
+        //private AddProductViewModel CreateAddProductViewModel()
+        //{
+        //    return new AddProductViewModel(CreateHomeNavigationService());
+        //}
 
     }
 }
