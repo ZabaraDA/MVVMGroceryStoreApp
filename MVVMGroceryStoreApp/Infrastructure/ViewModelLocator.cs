@@ -10,21 +10,21 @@ namespace MVVMGroceryStoreApp.Infrastructure
     {
         private static ServiceProvider _provider;
 
-        public static void InitializeComponent()
-        {
-            ServiceCollection services = new ServiceCollection();
+        //public static void InitializeComponent()
+        //{
+        //    ServiceCollection services = new ServiceCollection();
 
-            services.AddSingleton<AuthorizationViewModel>();
-            services.AddSingleton<MenuViewModel>();
+        //    services.AddSingleton<AuthorizationViewModel>();
+        //    services.AddSingleton<MenuViewModel>();
 
 
 
-            _provider = services.BuildServiceProvider();
+        //    _provider = services.BuildServiceProvider();
 
-            foreach (var item in services)
-            {
-                _provider.GetRequiredService(item.ServiceType);
-            }
-        }
+        //    foreach (var item in services)
+        //    {
+        //        _provider.GetRequiredService(item.ServiceType);
+        //    }
+        //}
     }
 }

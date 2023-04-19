@@ -20,6 +20,7 @@ namespace MVVMGroceryStoreApp.Views.Pages
     /// </summary>
     public partial class ProductPage : Page
     {
+        
         public ProductPage()
         {
             InitializeComponent();

@@ -70,6 +70,7 @@
                        Height="30"/>
             <PasswordBox Style="{StaticResource AuthorizationPasswordBoxStyle}" 
                          PasswordChanged="PasswordBox_PasswordChanged"/>
+            
 
         </StackPanel>
 
@@ -77,39 +78,41 @@
                 Content="Войти"
                 Command="{Binding Path=OpenCommand}"></Button>
 
-        <Border Background="Black" Grid.Row="1" Grid.RowSpan="3" Opacity="0.6" Visibility="Collapsed">
-            <Rectangle Width="100" Height="100" Fill="White" IsEnabled="False">
-                <!--<Rectangle.Fill>
+        <Border Background="Black" 
+                Grid.Row="1" 
+                Grid.RowSpan="3" 
+                Opacity="0.8" 
+                Visibility="{Binding AnimationVisiblity}">
+        </Border>
+        <Rectangle Grid.Row="1" 
+                   Grid.RowSpan="3" 
+                   Width="50" 
+                   Height="50" 
+                   Fill="White" 
+                   Visibility="{Binding AnimationVisiblity}">
+            <!--<Rectangle.Fill>
                     <ImageBrush ImageSource="/Images/aaa.png"></ImageBrush>
                 </Rectangle.Fill>-->
-                <Rectangle.RenderTransform>
-                    <RotateTransform Angle="0" CenterX="50" CenterY="50"/>
-                </Rectangle.RenderTransform>
-                <Rectangle.Style>
-                    <Style TargetType="{x:Type Rectangle}">
-                        <Style.Triggers>
-                            <Trigger Property="IsEnabled" Value="True">
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)" 
+            <Rectangle.RenderTransform>
+                <RotateTransform Angle="0" CenterX="25" CenterY="25"/>
+            </Rectangle.RenderTransform>
+            <Rectangle.Style>
+                <Style TargetType="{x:Type Rectangle}">
+                    <Style.Triggers>
+                        <Trigger Property="Visibility" Value="Visible">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Rectangle.RenderTransform).(RotateTransform.Angle)" 
                                                              To="0" From="360" Duration="0:0:0:1" RepeatBehavior="Forever"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Rectangle.Style>
-
-            </Rectangle>
-        </Border>
-
-        <!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="3" Visibility="Hidden">
-            <TextBlock Text="Данные введены неверно"></TextBlock>
-            <TextBlock FontSize="36" Name="TimerTextBlock" HorizontalAlignment="Center"></TextBlock>
-        </StackPanel>-->
-
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Rectangle.Style>
+        </Rectangle>
     </Grid>
 
 </Window>

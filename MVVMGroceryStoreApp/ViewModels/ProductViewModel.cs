@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MVVMGroceryStoreApp.Models.Databases;
 
 namespace MVVMGroceryStoreApp.ViewModels
 {
     public class ProductViewModel : BaseViewModel
     {
+        
         public ICommand NavigateProductCommand { get; }
 
 
@@ -26,7 +28,7 @@ namespace MVVMGroceryStoreApp.ViewModels
             {
                 return new ActionCommand((obj) =>
                 {
-
+                    GroceryStoreDatabase.GetContext().Товар.ToList();
                 });
             }
         }

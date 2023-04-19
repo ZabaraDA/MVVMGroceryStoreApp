@@ -10,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MVVMGroceryStoreApp.Views.Windows
+namespace MVVMGroceryStoreApp.Views.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MenuWindow.xaml
+    /// Логика взаимодействия для WelcomePage.xaml
     /// </summary>
-    public partial class MenuWindow : Window
+    public partial class WelcomePage : Page
     {
-        public MenuWindow()
+        public WelcomePage()
         {
             InitializeComponent();
-            
         }
     }
 }

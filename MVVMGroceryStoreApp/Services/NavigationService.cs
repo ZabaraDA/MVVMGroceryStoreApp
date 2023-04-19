@@ -8,7 +8,8 @@ using System.Windows.Controls;
 
 namespace MVVMGroceryStoreApp.Services
 {
-    public class NavigationService<TViewModel> : INavigationService where TViewModel : BaseViewModel
+    public class NavigationService<TViewModel> : INavigationService 
+        where TViewModel : BaseViewModel
     {
         private readonly NavigationStore _navigationStore;
         private readonly Func<TViewModel> _createViewModel;

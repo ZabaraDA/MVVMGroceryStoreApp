@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:MVVMGroceryStoreApp" 
              xmlns:viewmodels="clr-namespace:MVVMGroceryStoreApp.ViewModels" 
              xmlns:views="clr-namespace:MVVMGroceryStoreApp.Views.Pages" 
+             xmlns:windowviews="clr-namespace:MVVMGroceryStoreApp.Views.Windows" 
              StartupUri="Views\Windows\AuthorizationWindow.xaml"
              >
     <Application.Resources>
@@ -33,6 +34,12 @@
             <DataTemplate DataType="{x:Type viewmodels:AddProductViewModel}">
                 <views:AddProductPage/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:WelcomeViewModel}">
+                <views:WelcomePage/>
+            </DataTemplate>
+            <!--<DataTemplate DataType="{x:Type viewmodels:MenuViewModel}">
+                <windowviews:MenuWindow/>
+            </DataTemplate>-->
         </ResourceDictionary>
     </Application.Resources>
 </Application>

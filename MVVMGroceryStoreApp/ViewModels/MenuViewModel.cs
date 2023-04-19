@@ -15,43 +15,52 @@ namespace MVVMGroceryStoreApp.ViewModels
     {
         private readonly NavigationStore _navigationStore;
 
-        private readonly ModalNavigationStore _modalNavigationStore;
 
         public BaseViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
-
-        public BaseViewModel CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
-
-        public bool IsOpen => _modalNavigationStore.IsOpen;
-
-        public MenuViewModel(NavigationStore navigationStore, ModalNavigationStore modalNavigationStore)
+        // Представляемая модель                // Выбираем нужную модель
+        public MenuViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
-            _modalNavigationStore = modalNavigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
-            _modalNavigationStore.CurrentViewModelChanged += OnCurrentModalViewModelChanged;
-
-            //ProductCommand = new ActionCommand(Product);
         }
 
         private void OnCurrentViewModelChanged()
         {
             OnPropertyChanged(nameof(CurrentViewModel));
-        }
-
-        private void OnCurrentModalViewModelChanged()
+        } 
+        private INavigationService CreateProductNavigationService()
         {
-            OnPropertyChanged(nameof(CurrentModalViewModel));
-            OnPropertyChanged(nameof(IsOpen));
+            return new NavigationService<ProductViewModel>(_navigationStore, CreateProductViewModel);
         }
 
-
-        private object _currentView;
-        public object CurrentView
+        private ProductViewModel CreateProductViewModel()
         {
-            get { return _currentView; }
-            set { _currentView = value; OnPropertyChanged(); }
+            return new ProductViewModel(CreateAddProductNavigationService());
         }
 
+        private INavigationService CreateAddProductNavigationService()
+        {
+            return new NavigationService<AddProductViewModel>(_navigationStore, CreateAddProductViewModel);
+        }
+
+        private AddProductViewModel CreateAddProductViewModel()
+        {
+            return new AddProductViewModel(CreateProductNavigationService());
+        }
+        #region Function Commands     
+        public ICommand ProductCommand
+        {
+            get
+            {
+                return new ActionCommand((obj) =>
+                {
+                    INavigationService navigationService = CreateProductNavigationService();
+                    navigationService.Navigate();
+                });
+            }
+        }
+        #endregion
+        #region Window State
         private WindowState _windowState = WindowState.Normal;
         public WindowState WindowState
         {
@@ -79,12 +88,8 @@ namespace MVVMGroceryStoreApp.ViewModels
                 OnPropertyChanged(nameof(ResizeMode));
             }
         }
-        //public ICommand ProductCommand { get; set; }
-        //private void Product(object obj) => CurrentView = new ProductViewModel(_navigationService);
-
-
-
-        #region Commands
+        #endregion
+        #region Commands Window State
         public ICommand ExitCommand
         {
             get
@@ -94,7 +99,8 @@ namespace MVVMGroceryStoreApp.ViewModels
                     Application.Current.Shutdown();
                 });
             }
-        }
+        } 
+        
         public ICommand ScreenCommand
         {
             get
