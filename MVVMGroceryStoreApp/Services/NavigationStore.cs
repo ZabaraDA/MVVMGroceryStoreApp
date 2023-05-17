@@ -14,8 +14,7 @@ namespace MVVMGroceryStoreApp.Services
         {
             get => _currentViewModel;
             set
-            {
-                
+            {           
                 _currentViewModel = value;
                 OnCurrentViewModelChanged();
             }

@@ -7,12 +7,15 @@
       xmlns:my="clr-namespace:WpfCustomControlLibrary;assembly=WpfCustomControlLibrary" 
       xmlns:viewmodels="clr-namespace:MVVMGroceryStoreApp.ViewModels"
       mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance viewmodels:ProductViewModel}"
       Title="ProductPage">
     <!--<Page.DataContext>
-        --><!--<viewmodels:ProductViewModel/>--><!--
+        -->
+    <!--<viewmodels:ProductViewModel/>-->
+    <!--
     </Page.DataContext>-->
     <Page.Resources>
-        
+
         <Style TargetType="{x:Type ToggleButton}" x:Key="GroupingToggleButton">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
@@ -109,7 +112,9 @@
                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                        IsHitTestVisible="False"/>
 
-                            <ToggleButton Style="{StaticResource GroupingToggleButton}"
+                            <ToggleButton Name="ControlMenuButton" 
+                                          CommandParameter="{Binding DataContext.SelectedProduct, ElementName=MainListView}"
+                                          Style="{StaticResource GroupingToggleButton}"
                                           Grid.Column="1">
                                 <ToggleButton.Content>
                                     <Grid>
@@ -132,7 +137,9 @@
                                                                               Style="{StaticResource PopupNavigationButton}"
                                                                               ToolTip="Просмотр информации о товаре"/>
                                                     <my:NavigationButton Data="{StaticResource ChangedPathData}" 
-                                                                             Command="{Binding Path=ChangeProductCommand}"
+                                                                            
+                                                                             Command="{Binding DataContext.ChangeProductCommand, ElementName=MainListView}"
+                                                                             CommandParameter="{Binding DataContext.SelectedProduct, ElementName=MainListView}"
                                                                              Style="{StaticResource PopupNavigationButton}"
                                                                              ToolTip="Редактировать товар" 
                                                                              Content="Редактировать"/>
@@ -186,6 +193,7 @@
                                            StringFormat={}(Товаров в категории: {0})}"></TextBlock>
                             </StackPanel>
                             <ToggleButton Grid.Column="1"
+                                          Name="ControlMenuButton"
                                           Style="{StaticResource GroupingToggleButton}" >
                                 <ToggleButton.Content>
                                     <Grid>
@@ -212,7 +220,7 @@
                                                                           Style="{StaticResource PopupNavigationButton}"
                                                                           ToolTip="Добавить новый товар"/>
                                                     <my:NavigationButton Data="{StaticResource ChangedPathData}" 
-                                                                         Command="{Binding ChangeProductCommand}"
+                                                                         
                                                                          Style="{StaticResource PopupNavigationButton}"
                                                                          ToolTip="Редактировать группу" 
                                                                          Content="Редактировать группу"/>
@@ -226,7 +234,8 @@
                                      Visibility="{Binding ElementName=PART_ToggleButton,Path=IsChecked, Converter={StaticResource BooleanToVisibilityConverter},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                      ItemsSource="{Binding Товар}" ItemContainerStyle="{StaticResource ProductItemStyle}"
                                      BorderBrush="Gray" BorderThickness="1 0 0 0" Background="{x:Null}"
-                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     SelectedItem="{Binding DataContext.SelectedProduct, ElementName=MainListView, UpdateSourceTrigger=PropertyChanged}">
                             </ListView>
                         </Grid>
                         <ControlTemplate.Triggers>
@@ -269,7 +278,7 @@
                                 <TextBlock Text="{Binding Категория.Count,
                                        StringFormat={}(Категорий в группе: {0})}"></TextBlock>
                             </StackPanel>
-                            <ToggleButton Style="{StaticResource GroupingToggleButton}" Grid.Column="1">
+                            <ToggleButton Name="ControlMenuButton" Style="{StaticResource GroupingToggleButton}" Grid.Column="1">
                                 <ToggleButton.Content>
                                     <Grid>
                                         <Path Data="{StaticResource ControlMenuPathData}" 
@@ -349,15 +358,16 @@
             </Grid.RowDefinitions>
             <TextBlock Text="Товары" VerticalAlignment="Center" FontSize="24" Margin="20 5 5 5"></TextBlock>
             <Button Command="{Binding NavigateProductCommand}" Width="200"></Button>
+            <TextBlock Text="{Binding SelectedProduct.Наименование, StringFormat={} Наименование: {0}}" HorizontalAlignment="Left"></TextBlock>
             <my:TextBoxWithRemoved Name="NameSearchTextBox"
                                Width="200" Height="35"
                                FontSize="22"
                                VerticalContentAlignment="Center"
                                HorizontalAlignment="Right" 
                                Margin="0 0 20 0" Cursor="IBeam"/>
-            <ListView Grid.Row="1"
+            <ListView Grid.Row="1" Name="MainListView"
                       ItemsSource="{Binding GroupList}"
-                      ItemContainerStyle="{StaticResource GroupItemStyle}" 
+                      ItemContainerStyle="{StaticResource GroupItemStyle}"
                       Style="{StaticResource BaseListViewStyle}">
                 <ListView.View>
                     <GridView>
@@ -367,6 +377,7 @@
                         <GridViewColumn Header="Производитель" Width="200"></GridViewColumn>
                     </GridView>
                 </ListView.View>
+            
             </ListView>
         </Grid>
     </Grid>

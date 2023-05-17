@@ -21,6 +21,7 @@ namespace MVVMGroceryStoreApp
     /// </summary>
     public partial class AuthorizationWindow : Window
     {
+
         public AuthorizationWindow()
         {
             InitializeComponent();
@@ -30,7 +31,7 @@ namespace MVVMGroceryStoreApp
         {
             if (this.DataContext != null)
             { 
-                ((dynamic)this.DataContext).Password = ((PasswordBox)sender).SecurePassword;
+                ((dynamic)DataContext).Password = ((PasswordBox)sender).SecurePassword;
             }
         }
     }

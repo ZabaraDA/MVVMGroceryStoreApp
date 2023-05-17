@@ -13,9 +13,6 @@
         Width="1440" 
         FontFamily="{StaticResource Blogger Sans}"
         FontSize="20">
-    <!--<Window.DataContext>
-        <vm:MenuViewModel/>
-    </Window.DataContext>-->
     <WindowChrome.WindowChrome>
         <WindowChrome NonClientFrameEdges="None" 
                       CaptionHeight="40" 
@@ -54,22 +51,22 @@
                                  Style="{StaticResource PanelNavigationButtonStyle}"
                                  Command="{Binding Path=ExitCommand}"/>
         </StackPanel>
-        <Grid Width="70" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" 
+        <Grid Grid.Row="1"
+              Grid.ColumnSpan="2"
+              Width="70"
+              HorizontalAlignment="Left" 
               Background="{StaticResource Window.NavigationBar.Border}">
             <Grid.Effect>
                 <DropShadowEffect Opacity="0.15" BlurRadius="5" Direction="360"/>
             </Grid.Effect>
-            <StackPanel>
-
-                <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Top" Margin="10 10 10 0">
-                    <Border Width="50" Height="50"  Background="White" CornerRadius="5"></Border>
-                    <StackPanel Margin="10">
-                        <TextBlock Text="Имя" Name="NameTextBlock"></TextBlock>
-                        <TextBlock Text="Фамилия" Name="SurnameTextBlock"></TextBlock>
-                    </StackPanel>
+            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" VerticalAlignment="Top" Margin="10 10 10 0">
+                <Border Width="50" Height="50"  Background="White" CornerRadius="5"></Border>
+                <StackPanel Margin="10">
+                    <TextBlock Text="Имя" Name="NameTextBlock"></TextBlock>
+                    <TextBlock Text="Фамилия" Name="SurnameTextBlock"></TextBlock>
                 </StackPanel>
             </StackPanel>
-            <StackPanel VerticalAlignment="Center" Name="ControlStackPanel">
+            <StackPanel VerticalAlignment="Center">
                 <my:NavigationButton Data="{StaticResource ProductPathData}" Command="{Binding Path=ProductCommand}"></my:NavigationButton>
             </StackPanel>
         </Grid>

@@ -57,7 +57,7 @@
         <Image Grid.Row="1" Source="/Images/Logo.png" 
                    VerticalAlignment="Top"
                    Margin="0 40 0 40"
-                   Height="150"></Image>
+                   Height="150" Opacity="0"></Image>
         <StackPanel Grid.Row="2" 
                     HorizontalAlignment="Center" 
                     Margin="10">
@@ -65,7 +65,7 @@
             <TextBlock Text="Введите логин" 
                        Height="30"/>
             <TextBox Style="{StaticResource AuthorizationTextBoxStyle}"
-                     Text="{Binding Path=Login}"></TextBox>
+                     Text="{Binding Path=Login}"/>
             <TextBlock Text="Введите пароль" 
                        Height="30"/>
             <PasswordBox Style="{StaticResource AuthorizationPasswordBoxStyle}" 
@@ -76,7 +76,7 @@
 
         <Button Grid.Row="3"
                 Content="Войти"
-                Command="{Binding Path=OpenCommand}"></Button>
+                Command="{Binding Path=OpenCommand}"/>
 
         <Border Background="Black" 
                 Grid.Row="1" 

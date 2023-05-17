@@ -4,8 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MVVMGroceryStoreApp.Views.Pages"
-      xmlns:my="clr-namespace:WpfCustomControlLibrary;assembly=WpfCustomControlLibrary"
-      mc:Ignorable="d">
+      xmlns:my="clr-namespace:WpfCustomControlLibrary;assembly=WpfCustomControlLibrary" 
+      xmlns:vm="clr-namespace:MVVMGroceryStoreApp.ViewModels"
+      mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance vm:AddProductViewModel}">
     <Page.Resources>
         <Style TargetType="{x:Type my:NavigationButton}" BasedOn="{StaticResource StateNavigationButtonStyle}">
             <Setter Property="Height" Value="40"/>
@@ -79,45 +81,57 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <Button Content="Добавить фото" Width="200" Command="{Binding AddPhotoCommand}"  Margin="0"></Button>
                         <my:NavigationButton Data="{StaticResource DeletePathData}" 
-                                             Command="{Binding ClearPhotoCommand}"></my:NavigationButton>
+                                             Command="{Binding ClearPhotoCommand}"/>
                     </StackPanel>
-                    <TextBlock Text="Штрих код"></TextBlock>
-                    <my:TextBoxWithRemoved Uid="Введите штрих код" Text="{Binding Barcode}"
-                                           x:Name="BarcodeCodeTextBox" Cursor="IBeam"></my:TextBoxWithRemoved>
+                    <TextBlock Text="Штрих код"/>
+                    <my:TextBoxWithRemoved Uid="Введите штрих код" 
+                                           Text="{Binding Barcode}"
+                                           x:Name="BarcodeCodeTextBox" Cursor="IBeam"/>
                     <TextBlock Text="Артикул товара"></TextBlock>
-                    <my:TextBoxWithRemoved Uid="Введите артикул товара" Text="{Binding Article}"
-                                           x:Name="VendorCodeTextBox"></my:TextBoxWithRemoved>
-                    <TextBlock Text="Наименование товара"></TextBlock>
-                    <my:TextBoxWithRemoved Uid="Введите наименование товара" Text="{Binding Name}"
-                                           x:Name="NameTextBox"></my:TextBoxWithRemoved>
-                    <TextBlock Text="Описание товара"></TextBlock>
-                    <my:TextBoxWithRemoved Uid="Введите описание товара" Text="{Binding Description}"
-                                           x:Name="DescriptionTextBox"></my:TextBoxWithRemoved>
+                    <my:TextBoxWithRemoved Uid="Введите артикул товара" 
+                                           Text="{Binding Article}"
+                                           x:Name="VendorCodeTextBox"/>
+                    <TextBlock Text="Наименование товара"/>
+                    <my:TextBoxWithRemoved Uid="Введите наименование товара" 
+                                           Text="{Binding Name}"
+                                           x:Name="NameTextBox"/>
+                    <TextBlock Text="Описание товара"/>
+                    <my:TextBoxWithRemoved Uid="Введите описание товара" 
+                                           Text="{Binding Description}"
+                                           x:Name="DescriptionTextBox"/>
                 </StackPanel>
 
                 <StackPanel Margin="10 10 30 0">
-                    <TextBlock Text="Стоимость товара"></TextBlock>
-                    <my:TextBoxWithRemoved Uid="Введите стоимость" Text="{Binding Cost}"
-                                           x:Name="CostTextBox"></my:TextBoxWithRemoved>
-                    <TextBlock Text="НДС к цене"></TextBlock>
-                    <my:TextBoxWithRemoved Uid="Введите НДС" Text="{Binding VAT}"
-                                           x:Name="VATTextBox"></my:TextBoxWithRemoved>
-                    <TextBlock Text="Категория товара"></TextBlock>
-                    <ComboBox x:Name="CategoryComboBox" 
-                              SelectedItem="{Binding Path= Категория}" 
-                              SelectedIndex="{Binding Path=SelectedIndex, TargetNullValue=0,FallbackValue=0}"
-                              SelectedValue="{Binding Path= Категория.Код}"
-                              SelectedValuePath="Код"></ComboBox>
-                    <TextBlock Text="Производитель товара"></TextBlock>
+                    <TextBlock Text="Стоимость товара"/>
+                    <my:TextBoxWithRemoved Uid="Введите стоимость" 
+                                           Text="{Binding Cost}"
+                                           x:Name="CostTextBox"/>
+                    <TextBlock Text="НДС к цене"/>
+                    <my:TextBoxWithRemoved Uid="Введите НДС" 
+                                           Text="{Binding VAT}"
+                                           x:Name="VATTextBox"/>
+                    <TextBlock Text="Группа товара"/>
+                    <ComboBox ItemsSource="{Binding GroupsList}"
+                              SelectedItem="{Binding Path= SelectedGroup}" 
+                              SelectedValue="{Binding Path= SelectedGroup.Код}"
+                              SelectedValuePath="Код"
+                              DisplayMemberPath="Наименование"/>
+                    <TextBlock Text="Категория товара"/>
+                    <ComboBox ItemsSource="{Binding SelectedGroup.Категория}"
+                              SelectedItem="{Binding Path= SelectedCategory}" 
+                              SelectedValue="{Binding Path= SelectedCategory.Код}"
+                              SelectedValuePath="Код"
+                              DisplayMemberPath="Наименование"/>
+                    <TextBlock Text="Производитель товара"/>
                     <ComboBox x:Name="ManufacturerComboBox" 
                               SelectedItem="{Binding Path= Производитель}" 
                               SelectedIndex="{Binding Path=SelectedIndex, TargetNullValue=0,FallbackValue=0}"
                               SelectedValue="{Binding Path= Производитель.Код}"
-                              SelectedValuePath="Код"></ComboBox>
+                              SelectedValuePath="Код"/>
                     <TextBlock Text="Срок годности товара(дней)"></TextBlock>
                     <my:TextBoxWithRemoved Uid="Введите срок годности" Text="{Binding ExpirationDate}"
-                                           x:Name="ExpirationDateTextBox" Cursor="IBeam"></my:TextBoxWithRemoved>
-                    <TextBlock Text="Единица измерения"></TextBlock>
+                                           x:Name="ExpirationDateTextBox"/>
+                    <TextBlock Text="Единица измерения"/>
                     <ComboBox x:Name="UnitComboBox" 
                               SelectedItem="{Binding Path= ЕдиницаИзмерения}" 
                               SelectedIndex="{Binding Path=SelectedIndex, TargetNullValue=0,FallbackValue=0}"

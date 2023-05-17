@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:local="clr-namespace:MVVMGroceryStoreApp.Infrastructure.Converters"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-                    xmlns:infrastructure="clr-namespace:MVVMGroceryStoreApp.Infrastructure">
+                    xmlns:infrastructure="clr-namespace:MVVMGroceryStoreApp.Infrastructure.Converters">
     
     <!--#region converter-->
     <local:RectangleConverter x:Key="RectangleConverter"/>

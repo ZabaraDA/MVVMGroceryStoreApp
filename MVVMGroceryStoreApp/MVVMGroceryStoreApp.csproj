@@ -81,7 +81,7 @@
     </ApplicationDefinition>
     <Compile Include="Infrastructure\Commands\BaseCommand.cs" />
     <Compile Include="Infrastructure\Commands\NavigateCommand.cs" />
-    <Compile Include="Infrastructure\ViewModelLocator.cs" />
+    <Compile Include="Infrastructure\Commands\NavigateProductCommand.cs" />
     <Compile Include="Models\AuthorizationModel.cs" />
     <Compile Include="Models\Databases\DatabaseModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -195,10 +195,12 @@
     <Compile Include="Models\Databases\ЭлементПланировка.cs">
       <DependentUpon>DatabaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\GroupModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Services\INavigationService.cs" />
     <Compile Include="Services\NavigationService.cs" />
     <Compile Include="Services\NavigationStore.cs" />
+    <Compile Include="Services\ProductStore.cs" />
     <Compile Include="ViewModels\AddProductViewModel.cs" />
     <Compile Include="ViewModels\WelcomeViewModel.cs" />
     <Compile Include="Views\Pages\AddProductPage.xaml.cs">

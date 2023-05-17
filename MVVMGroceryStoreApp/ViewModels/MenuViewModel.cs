@@ -14,20 +14,22 @@ namespace MVVMGroceryStoreApp.ViewModels
     public class MenuViewModel : BaseViewModel
     {
         private readonly NavigationStore _navigationStore;
-
+        private readonly ProductStore _productStore = new ProductStore();
 
         public BaseViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
-        // Представляемая модель                // Выбираем нужную модель
+        // Представляемая модель                // Получаем нужную модель нужную модель
         public MenuViewModel(NavigationStore navigationStore)
         {
+            _productStore = new ProductStore();
             _navigationStore = navigationStore;
-            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged; // Подписываемся на событие
         }
-
-        private void OnCurrentViewModelChanged()
+        
+        private void OnCurrentViewModelChanged() // При каждом изменении выполняем
         {
             OnPropertyChanged(nameof(CurrentViewModel));
-        } 
+        }
+        #region Product Navigation Service
         private INavigationService CreateProductNavigationService()
         {
             return new NavigationService<ProductViewModel>(_navigationStore, CreateProductViewModel);
@@ -35,7 +37,7 @@ namespace MVVMGroceryStoreApp.ViewModels
 
         private ProductViewModel CreateProductViewModel()
         {
-            return new ProductViewModel(CreateAddProductNavigationService());
+            return new ProductViewModel(CreateAddProductNavigationService(),_productStore);
         }
 
         private INavigationService CreateAddProductNavigationService()
@@ -45,8 +47,9 @@ namespace MVVMGroceryStoreApp.ViewModels
 
         private AddProductViewModel CreateAddProductViewModel()
         {
-            return new AddProductViewModel(CreateProductNavigationService());
+            return new AddProductViewModel(CreateProductNavigationService(),_productStore);
         }
+        #endregion
         #region Function Commands     
         public ICommand ProductCommand
         {
